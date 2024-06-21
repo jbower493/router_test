@@ -13,8 +13,8 @@ function Account() {
         Toggle
       </button>
       <MyAnimate>
-        <div>
-          {isVisible ? <h3 key="1">Animate</h3> : <h1 key="2">Other thing</h1>}
+        <div key="1">
+          {isVisible ? <h3 key="2">Animate</h3> : <h1 key="3">Other thing</h1>}
         </div>
       </MyAnimate>
     </div>
