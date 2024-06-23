@@ -4,6 +4,7 @@ import { HostingAdmin } from "..";
 import { useStore } from "@tanstack/react-store";
 import { store } from "../../../../routeStore";
 import { isRouteEnabled } from "../../sidebar";
+import { AnimatePresence } from "../../../../components/AnimatePresence";
 
 export function Move() {
     return <h3>Move module</h3>;
@@ -12,11 +13,19 @@ export function Move() {
 function Gate() {
     const sidebarState = useStore(store);
 
-    if (!isRouteEnabled("/hosting/admin/move", sidebarState.sidebar)) {
-        return <p>404</p>;
+    function getJsx() {
+        if (!isRouteEnabled("/hosting/admin/move", sidebarState.sidebar)) {
+            return <p>404</p>;
+        }
+
+        return <HostingAdmin />;
     }
 
-    return <HostingAdmin />;
+    return (
+        <AnimatePresence.Child>
+            <div key="/hosting/admin">{getJsx()}</div>
+        </AnimatePresence.Child>
+    );
 }
 
 export const hostingAdminMoveRoute = createRoute({

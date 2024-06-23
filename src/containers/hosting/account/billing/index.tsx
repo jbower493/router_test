@@ -4,11 +4,22 @@ import { HostingAccount } from "..";
 import { isRouteEnabled } from "../../sidebar";
 import { useStore } from "@tanstack/react-store";
 import { store } from "../../../../routeStore";
+import { AnimatePresence } from "../../../../components/AnimatePresence";
+import { useState } from "react";
 
 export function Billing() {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
     return (
         <div>
             <h3>Billing module</h3>
+            <button
+                type="button"
+                onClick={() => setIsDropdownOpen((prev) => !prev)}
+            >
+                Toggle dropdown
+            </button>
+            {isDropdownOpen ? <div>The dropdown is open</div> : null}
         </div>
     );
 }
@@ -16,11 +27,19 @@ export function Billing() {
 function Gate() {
     const sidebarState = useStore(store);
 
-    if (!isRouteEnabled("/hosting/account/billing", sidebarState.sidebar)) {
-        return <p>404</p>;
+    function getJsx() {
+        if (!isRouteEnabled("/hosting/account/billing", sidebarState.sidebar)) {
+            return <p>404</p>;
+        }
+
+        return <HostingAccount />;
     }
 
-    return <HostingAccount />;
+    return (
+        <AnimatePresence.Child>
+            <div key="/hosting/account">{getJsx()}</div>
+        </AnimatePresence.Child>
+    );
 }
 
 export const hostingAccountBillingRoute = createRoute({

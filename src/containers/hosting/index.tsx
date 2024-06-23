@@ -15,7 +15,7 @@ function Hosting() {
                 sidebar: {
                     ...state.sidebar,
                     "/hosting/account/overview": true,
-                    "/hosting/account/billing": false,
+                    "/hosting/account/billing": true,
                     "/hosting/account/resources": true,
                     "/hosting/admin/move": true,
                     "/hosting/admin/delete": true,
@@ -37,7 +37,13 @@ function Hosting() {
                 <h1>Hosting</h1>
                 {isLoading ? <p>Hosting page loading</p> : <HostingSidebar />}
                 <hr />
-                {isLoading ? <p>Hosting page loading</p> : <Outlet />}
+                {isLoading ? (
+                    <p>Hosting page loading</p>
+                ) : (
+                    <AnimatePresence>
+                        <Outlet />
+                    </AnimatePresence>
+                )}
                 {/* {isLoading ? <p>Hosting page loading</p> : <h2>Not loading</h2>} */}
             </div>
         </AnimatePresence.Child>
