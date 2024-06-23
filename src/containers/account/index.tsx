@@ -1,11 +1,23 @@
 import { createRoute } from "@tanstack/react-router";
 import { rootRoute } from "../../main";
 import { MyAnimateChild } from "../../utils/MyAnimate";
+import { useState } from "react";
 
 function Account() {
+    const [count, setCount] = useState(0);
+
     return (
         <MyAnimateChild>
-            <h1 key="/account">Account</h1>
+            <div key="/account">
+                <h1>Account</h1>
+                <button
+                    type="button"
+                    onClick={() => setCount((prev) => prev + 1)}
+                >
+                    Increment
+                </button>
+                <div>Count: {count}</div>
+            </div>
         </MyAnimateChild>
     );
 }

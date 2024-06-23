@@ -15,7 +15,7 @@ function Hosting() {
                 sidebar: {
                     ...state.sidebar,
                     "/hosting/account/overview": false,
-                    "/hosting/account/billing": false,
+                    "/hosting/account/billing": true,
                     "/hosting/account/resources": true,
                     "/hosting/admin/move": true,
                     "/hosting/admin/delete": true,

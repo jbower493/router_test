@@ -4,7 +4,7 @@ import { routeTree } from "./main";
 export type ValidRoute = ParseRoute<typeof routeTree>["fullPath"];
 type RouterConfig = Record<ValidRoute, { enabled: boolean; label?: string }>;
 
-export const brand: "Brand 1" | "Brand 2" = "Brand 2" as "Brand 1" | "Brand 2";
+export const brand: "Brand 1" | "Brand 2" = "Brand 1" as "Brand 1" | "Brand 2";
 
 const brand1Config: RouterConfig = {
     "/": {
