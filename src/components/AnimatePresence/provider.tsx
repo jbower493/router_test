@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import { States } from "./types";
 import { AnimatePresenceContext } from "./context";
+import { States } from "./types";
 
 export function AnimatePresenceProvider({
     children,
@@ -17,6 +17,7 @@ export function AnimatePresenceProvider({
         animatePresenceId: string,
         newCurrentChild: JSX.Element | null
     ) {
+        // If the child changes, set it to exiting
         if (
             hasMounted.current[animatePresenceId] &&
             newCurrentChild?.key &&
@@ -29,6 +30,7 @@ export function AnimatePresenceProvider({
             return;
         }
 
+        // If it's not mounted yet, set it to mounted (we don't want to set things to "exiting" when they haven't mounted yet)
         if (
             !hasMounted.current[animatePresenceId] &&
             !currentChild.current[animatePresenceId] &&
@@ -37,6 +39,7 @@ export function AnimatePresenceProvider({
             hasMounted.current[animatePresenceId] = true;
         }
 
+        // Set current children on every render cycle of the "AnimatePresence.Child"
         currentChild.current[animatePresenceId] = newCurrentChild;
     }
 

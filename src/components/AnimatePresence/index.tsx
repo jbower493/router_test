@@ -1,7 +1,7 @@
 import { cloneElement, useContext } from "react";
 import "./AnimatePresence.css";
-import { AnimatePresenceContext } from "./context";
 import { AnimatePresenceChild } from "./child";
+import { AnimatePresenceContext } from "./context";
 import { AnimatePresenceProvider } from "./provider";
 
 /**
@@ -19,7 +19,7 @@ import { AnimatePresenceProvider } from "./provider";
  * - All elements in between "AnimatePresence" and "AnimatePresence.Child" will not be rendered while "AnimatePresence.Child" is exiting, so you should only use components that render no dom elements in between the parent and child.
  */
 
-export function _AnimatePresence({
+function _AnimatePresence({
     children,
     id,
 }: {
@@ -46,6 +46,7 @@ export function _AnimatePresence({
         : null;
 
     function getChildrenToRender() {
+        // If another instance of "AnimatePresence" further up the tree is exiting, remove the outlet from this one to avoid the wrong stuff showing in this outlet
         if (getIsParentExiting(id)) {
             return cloneElement(currentChild[id] || <></>);
         }
