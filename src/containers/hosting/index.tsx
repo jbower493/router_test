@@ -3,6 +3,7 @@ import { HostingSidebar } from "./sidebar";
 import { rootRoute } from "../../main";
 import { useEffect, useState } from "react";
 import { store } from "../../routeStore";
+import { MyAnimateChild } from "../../utils/MyAnimate";
 
 function Hosting() {
     const [isLoading, setIsLoading] = useState(true);
@@ -31,12 +32,14 @@ function Hosting() {
     }, []);
 
     return (
-        <div>
-            <h1>Hosting</h1>
-            {isLoading ? <p>Hosting page loading</p> : <HostingSidebar />}
-            <hr />
-            {isLoading ? <p>Hosting page loading</p> : <Outlet />}
-        </div>
+        <MyAnimateChild>
+            <div key="/hosting">
+                <h1>Hosting</h1>
+                {isLoading ? <p>Hosting page loading</p> : <HostingSidebar />}
+                <hr />
+                {isLoading ? <p>Hosting page loading</p> : <Outlet />}
+            </div>
+        </MyAnimateChild>
     );
 }
 

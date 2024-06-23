@@ -1,8 +1,13 @@
 import { createRoute } from "@tanstack/react-router";
 import { rootRoute } from "../../main";
+import { MyAnimateChild } from "../../utils/MyAnimate";
 
 function Dashboard() {
-    return <h1>Dashboard</h1>;
+    return (
+        <MyAnimateChild>
+            <h1 key="/">Dashboard</h1>
+        </MyAnimateChild>
+    );
 }
 
 export const indexRoute = createRoute({

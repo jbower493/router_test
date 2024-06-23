@@ -8,32 +8,40 @@ import {
 } from "react";
 import "./animate.css";
 
-function hasChildChanged(
-    oldChildren: JSX.Element | null,
-    newChildren: JSX.Element | null
-) {
-    return !!(
-        oldChildren?.key &&
-        newChildren?.key &&
-        oldChildren.key !== newChildren.key
-    );
-}
-
 type States = "entering" | "exiting" | "stable";
 type TAnimateContext = {
-    setExitingChild: (newExitingChild: JSX.Element | null) => void;
-    setState: (newState: States) => void;
+    setCurrentChild: (newCurrentChild: JSX.Element | null) => void;
 };
 
 export const AnimateContext = createContext<TAnimateContext>({
-    setExitingChild: () => {},
-    setState: () => {},
+    setCurrentChild: () => {},
 });
 
 export function MyAnimate({ children }: { children: JSX.Element }) {
     const [state, setState] = useState<States>("stable");
 
+    const hasMounted = useRef(false);
+    const currentChild = useRef<JSX.Element | null>(null);
     const exitingChild = useRef<JSX.Element | null>(null);
+
+    function setCurrentChild(newCurrentChild: JSX.Element | null) {
+        if (
+            hasMounted.current &&
+            newCurrentChild?.key &&
+            newCurrentChild.key !== currentChild.current?.key
+        ) {
+            exitingChild.current = currentChild.current;
+            currentChild.current = newCurrentChild;
+            setState("exiting");
+            return;
+        }
+
+        if (!hasMounted.current && !currentChild.current && newCurrentChild) {
+            hasMounted.current = true;
+        }
+
+        currentChild.current = newCurrentChild;
+    }
 
     const exitingChildElement = exitingChild?.current
         ? cloneElement(exitingChild.current, {
@@ -45,22 +53,18 @@ export function MyAnimate({ children }: { children: JSX.Element }) {
           })
         : null;
 
-    const childElement = children
-        ? cloneElement(children, {
-              className: "motion-in",
-          })
-        : null;
+    const childElement = children || null;
+
+    const childToRender =
+        state === "exiting" ? exitingChildElement : childElement;
 
     return (
         <AnimateContext.Provider
             value={{
-                setExitingChild: (newExitingChild) => {
-                    exitingChild.current = newExitingChild;
-                },
-                setState,
+                setCurrentChild,
             }}
         >
-            {state === "exiting" ? exitingChildElement : childElement}
+            {childToRender}
         </AnimateContext.Provider>
     );
 }
@@ -68,23 +72,9 @@ export function MyAnimate({ children }: { children: JSX.Element }) {
 export function MyAnimateChild({ children }: { children: JSX.Element }) {
     const animateContext = useContext(AnimateContext);
 
-    const hasMounted = useRef(false);
-    const currentChild = useRef<JSX.Element | null>(null);
-
     useLayoutEffect(() => {
-        if (
-            hasChildChanged(currentChild.current, children) &&
-            hasMounted.current
-        ) {
-            animateContext.setExitingChild(currentChild.current);
-            animateContext.setState("exiting");
-        }
-        currentChild.current = children;
-    }, [children]);
-
-    useLayoutEffect(() => {
-        hasMounted.current = true;
-    }, []);
+        animateContext.setCurrentChild(children);
+    });
 
     return cloneElement(children, {
         className: "motion-in",
