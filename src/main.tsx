@@ -20,7 +20,7 @@ import { AnimatePresence } from "./components/AnimatePresence";
 export const rootRoute = createRootRoute({
     component: App,
     notFoundComponent: () => (
-        <AnimatePresence.Child>
+        <AnimatePresence.Child parentId="1">
             <h1 key="root_not_found">404</h1>
         </AnimatePresence.Child>
     ),

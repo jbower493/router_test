@@ -17,9 +17,9 @@
 }
 
 .motion-in {
-    animation: animateIn 1s ease-in-out forwards;
+    animation: animateIn 0.5s ease-in-out forwards;
 }
 
 .motion-out {
-    animation: animateOut 1s ease-in-out forwards;
+    animation: animateOut 0.5s ease-in-out forwards;
 }

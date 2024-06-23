@@ -4,7 +4,7 @@ import { AnimatePresence } from "../../components/AnimatePresence";
 
 function Wallet() {
     return (
-        <AnimatePresence.Child>
+        <AnimatePresence.Child parentId="1">
             <h1 key="/wallet">Wallet</h1>
         </AnimatePresence.Child>
     );

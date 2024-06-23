@@ -32,7 +32,7 @@ function Hosting() {
     }, []);
 
     return (
-        <AnimatePresence.Child>
+        <AnimatePresence.Child parentId="1">
             <div key="/hosting">
                 <h1>Hosting</h1>
                 {isLoading ? <p>Hosting page loading</p> : <HostingSidebar />}
@@ -40,7 +40,7 @@ function Hosting() {
                 {isLoading ? (
                     <p>Hosting page loading</p>
                 ) : (
-                    <AnimatePresence>
+                    <AnimatePresence id="2">
                         <Outlet />
                     </AnimatePresence>
                 )}

@@ -7,7 +7,7 @@ function Account() {
     const [count, setCount] = useState(0);
 
     return (
-        <AnimatePresence.Child>
+        <AnimatePresence.Child parentId="1">
             <div key="/account">
                 <h1>Account</h1>
                 <button

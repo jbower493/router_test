@@ -22,7 +22,7 @@ function Gate() {
     }
 
     return (
-        <AnimatePresence.Child>
+        <AnimatePresence.Child parentId="2">
             <div key="/hosting/admin">{getJsx()}</div>
         </AnimatePresence.Child>
     );
