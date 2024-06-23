@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom/client";
-import App from "./tempApp.tsx";
+import App from "./App.tsx";
 import "./index.css";
 import {
     RouterProvider,
