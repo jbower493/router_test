@@ -15,9 +15,15 @@ import { hostingAdminMoveRoute } from "./containers/hosting/admin/move/index.tsx
 import { hostingAdminDeleteRoute } from "./containers/hosting/admin/delete/index.tsx";
 import { accountRoute } from "./containers/account/index.tsx";
 import { walletRoute } from "./containers/wallet/index.tsx";
+import { AnimatePresence } from "./components/AnimatePresence";
 
 export const rootRoute = createRootRoute({
     component: App,
+    notFoundComponent: () => (
+        <AnimatePresence.Child>
+            <h1 key="root_not_found">404</h1>
+        </AnimatePresence.Child>
+    ),
 });
 
 export const routeTree = rootRoute.addChildren([

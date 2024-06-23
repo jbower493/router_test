@@ -15,6 +15,10 @@ export function Nav() {
             <div>
                 <Link to="/hosting/account/overview">Hosting</Link>
             </div>
+            <div>
+                {/* @ts-ignore */}
+                <Link to="/not-real-page">Not real page</Link>
+            </div>
         </nav>
     );
 }
