@@ -44,7 +44,6 @@ function Hosting() {
                         <Outlet />
                     </AnimatePresence>
                 )}
-                {/* {isLoading ? <p>Hosting page loading</p> : <h2>Not loading</h2>} */}
             </div>
         </AnimatePresence.Child>
     );
