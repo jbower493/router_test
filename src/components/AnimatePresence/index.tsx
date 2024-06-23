@@ -6,18 +6,18 @@ import {
     useRef,
     useState,
 } from "react";
-import "./animate.css";
+import "./AnimatePresence.css";
 
 type States = "entering" | "exiting" | "stable";
-type TAnimateContext = {
+type TAnimatePresenceContext = {
     setCurrentChild: (newCurrentChild: JSX.Element | null) => void;
 };
 
-export const AnimateContext = createContext<TAnimateContext>({
+export const AnimatePresenceContext = createContext<TAnimatePresenceContext>({
     setCurrentChild: () => {},
 });
 
-export function MyAnimate({ children }: { children: JSX.Element }) {
+export function _AnimatePresence({ children }: { children: JSX.Element }) {
     const [state, setState] = useState<States>("stable");
 
     const hasMounted = useRef(false);
@@ -59,24 +59,28 @@ export function MyAnimate({ children }: { children: JSX.Element }) {
         state === "exiting" ? exitingChildElement : childElement;
 
     return (
-        <AnimateContext.Provider
+        <AnimatePresenceContext.Provider
             value={{
                 setCurrentChild,
             }}
         >
             {childToRender}
-        </AnimateContext.Provider>
+        </AnimatePresenceContext.Provider>
     );
 }
 
-export function MyAnimateChild({ children }: { children: JSX.Element }) {
-    const animateContext = useContext(AnimateContext);
+function AnimatePresenceChild({ children }: { children: JSX.Element }) {
+    const { setCurrentChild } = useContext(AnimatePresenceContext);
 
     useLayoutEffect(() => {
-        animateContext.setCurrentChild(children);
+        setCurrentChild(children);
     });
 
     return cloneElement(children, {
         className: "motion-in",
     });
 }
+
+export const AnimatePresence = Object.assign(_AnimatePresence, {
+    Child: AnimatePresenceChild,
+});

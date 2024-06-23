@@ -1,7 +1,7 @@
 import { Outlet } from "@tanstack/react-router";
 import { Nav } from "./nav";
 import { brand } from "./routerConfig";
-import { MyAnimate } from "./utils/MyAnimate";
+import { AnimatePresence } from "./components/AnimatePresence";
 
 export default function App() {
     return (
@@ -9,9 +9,9 @@ export default function App() {
             <h1>{brand}</h1>
             <Nav />
             <hr />
-            <MyAnimate>
+            <AnimatePresence>
                 <Outlet />
-            </MyAnimate>
+            </AnimatePresence>
         </div>
     );
 }

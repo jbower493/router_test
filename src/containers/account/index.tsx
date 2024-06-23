@@ -1,13 +1,13 @@
 import { createRoute } from "@tanstack/react-router";
 import { rootRoute } from "../../main";
-import { MyAnimateChild } from "../../utils/MyAnimate";
 import { useState } from "react";
+import { AnimatePresence } from "../../components/AnimatePresence";
 
 function Account() {
     const [count, setCount] = useState(0);
 
     return (
-        <MyAnimateChild>
+        <AnimatePresence.Child>
             <div key="/account">
                 <h1>Account</h1>
                 <button
@@ -18,7 +18,7 @@ function Account() {
                 </button>
                 <div>Count: {count}</div>
             </div>
-        </MyAnimateChild>
+        </AnimatePresence.Child>
     );
 }
 

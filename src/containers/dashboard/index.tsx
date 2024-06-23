@@ -1,12 +1,12 @@
 import { createRoute } from "@tanstack/react-router";
 import { rootRoute } from "../../main";
-import { MyAnimateChild } from "../../utils/MyAnimate";
+import { AnimatePresence } from "../../components/AnimatePresence";
 
 function Dashboard() {
     return (
-        <MyAnimateChild>
+        <AnimatePresence.Child>
             <h1 key="/">Dashboard</h1>
-        </MyAnimateChild>
+        </AnimatePresence.Child>
     );
 }
 
