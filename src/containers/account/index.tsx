@@ -3,6 +3,19 @@ import { rootRoute } from "../../main";
 import { useState } from "react";
 import { AnimatePresence } from "../../components/AnimatePresence";
 
+function Nested() {
+    const [count, setCount] = useState(0);
+
+    return (
+        <div>
+            <button type="button" onClick={() => setCount((prev) => prev + 1)}>
+                Increment nested
+            </button>
+            <h4>Nested count: {count}</h4>
+        </div>
+    );
+}
+
 function Account() {
     const [count, setCount] = useState(0);
 
@@ -17,6 +30,7 @@ function Account() {
                     Increment
                 </button>
                 <div>Count: {count}</div>
+                <Nested />
             </div>
         </AnimatePresence.Child>
     );
